@@ -1,413 +1,772 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pinova - بوابة التجارة الإلكترونية</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PiNova - منصة ذكية متكاملة</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+    body {
+      background: linear-gradient(135deg, #0a0e27, #1a1f3a, #0f172a);
+      color: #fff;
+      min-height: 100vh;
+      padding-bottom: 90px;
+      overflow-x: hidden;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            overflow-x: hidden;
-        }
+    /* Animated Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+      z-index: -1;
+      animation: pulse 8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
 
-        /* Header & Navigation */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1rem 2rem;
-            background: rgba(102, 126, 234, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        }
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .logo-icon {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, #a855f7, #6366f1);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+    }
+    .header-actions { display: flex; gap: 10px; }
+    .icon-btn {
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.3s;
+    }
+    .icon-btn:hover { background: rgba(255,255,255,0.2); transform: scale(1.1); }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+    /* Hero */
+    .hero {
+      padding: 30px 20px 20px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(168, 85, 247, 0.2);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      border-radius: 20px;
+      font-size: 12px;
+      margin-bottom: 15px;
+      color: #d8b4fe;
+    }
+    .hero h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #a855f7, #ec4899, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p { color: #cbd5e1; font-size: 15px; line-height: 1.6; }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
+    /* Pi Balance */
+    .pi-balance {
+      margin: 20px;
+      padding: 20px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      border-radius: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+    }
+    .pi-balance .amount { font-size: 26px; font-weight: bold; }
+    .pi-balance .label { font-size: 13px; opacity: 0.9; }
+    .pi-btn {
+      padding: 10px 20px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 12px;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-        }
+    /* Section Title */
+    .section-title {
+      padding: 0 20px;
+      margin: 30px 0 18px;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 24px;
+      background: linear-gradient(180deg, #a855f7, #ec4899);
+      border-radius: 2px;
+    }
 
-        nav a:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
+    /* Main Cards Grid - 4 Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      padding: 0 20px;
+    }
+    @media (max-width: 480px) {
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      padding: 25px 20px;
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.15);
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card:hover { 
+      transform: translateY(-5px); 
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .card-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,0.25);
+      width: fit-content;
+    }
+    .card-icon-main {
+      font-size: 48px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 0 15px currentColor);
+    }
+    .card h3 { font-size: 18px; margin-bottom: 8px; font-weight: bold; }
+    .card p { font-size: 12px; opacity: 0.9; margin-bottom: 15px; line-height: 1.5; }
+    .card-btn {
+      padding: 10px 18px;
+      background: rgba(255,255,255,0.25);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 13px;
+      width: fit-content;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+    }
+    .card-btn:hover { background: rgba(255,255,255,0.4); }
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 6rem 2rem 2rem;
-            position: relative;
-        }
+    /* Card Themes - Match Image Colors */
+    .card-content {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(5, 150, 105, 0.2));
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.4), inset 0 0 30px rgba(16, 185, 129, 0.1);
+    }
+    .card-content .card-icon-main { color: #10b981; }
 
-        .hero-content {
-            max-width: 800px;
-            animation: fadeInUp 1s ease;
-        }
+    .card-cyber {
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.2));
+      box-shadow: 0 0 30px rgba(249, 115, 22, 0.4), inset 0 0 30px rgba(249, 115, 22, 0.1);
+    }
+    .card-cyber .card-icon-main { color: #f97316; }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
+    .card-academy {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(124, 58, 237, 0.2));
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.4), inset 0 0 30px rgba(168, 85, 247, 0.1);
+    }
+    .card-academy .card-icon-main { color: #a855f7; }
 
-        .hero .tagline {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
+    .card-landing {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(37, 99, 235, 0.2));
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.4), inset 0 0 30px rgba(59, 130, 246, 0.1);
+    }
+    .card-landing .card-icon-main { color: #3b82f6; }
 
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
+    /* Stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 0 20px;
+      margin-top: 25px;
+    }
+    .stat {
+      background: rgba(255,255,255,0.06);
+      padding: 18px 10px;
+      border-radius: 16px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .stat .num {
+      font-size: 24px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #a855f7, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat .lbl { font-size: 12px; color: #cbd5e1; margin-top: 5px; }
 
-        .btn {
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
-        }
+    /* Sub-sections */
+    .sub-sections { padding: 0 20px; margin-top: 15px; }
+    .sub-card {
+      background: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .sub-card:hover { background: rgba(255,255,255,0.1); transform: translateX(-5px); }
+    .sub-card-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .sub-card-info { flex: 1; }
+    .sub-card-info h4 { font-size: 14px; margin-bottom: 3px; }
+    .sub-card-info p { font-size: 12px; color: #94a3b8; }
+    .sub-card-arrow { color: #64748b; font-size: 18px; }
 
-        .btn-primary {
-            background: white;
-            color: #667eea;
-        }
+    /* AI Features Box */
+    .ai-features {
+      margin: 25px 20px;
+      padding: 22px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(168, 85, 247, 0.25));
+      border-radius: 24px;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      backdrop-filter: blur(20px);
+    }
+    .ai-features h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .ai-item {
+      background: rgba(255,255,255,0.1);
+      padding: 15px 8px;
+      border-radius: 14px;
+      text-align: center;
+      font-size: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s;
+    }
+    .ai-item:hover { background: rgba(255,255,255,0.15); transform: translateY(-3px); }
+    .ai-item .ai-icon { font-size: 26px; margin-bottom: 6px; }
 
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
+    /* Landing Page Generator Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: linear-gradient(135deg, #1e1b4b, #312e81);
+      border-radius: 24px;
+      padding: 30px;
+      max-width: 500px;
+      width: 100%;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      box-shadow: 0 0 50px rgba(168, 85, 247, 0.3);
+    }
+    .modal-content h2 {
+      margin-bottom: 15px;
+      background: linear-gradient(90deg, #3b82f6, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .modal-content input, .modal-content textarea, .modal-content select {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    .modal-content input:focus, .modal-content textarea:focus {
+      outline: none;
+      border-color: #a855f7;
+      background: rgba(255,255,255,0.12);
+    }
+    .modal-content textarea { min-height: 100px; resize: vertical; }
+    .modal-buttons { display: flex; gap: 10px; margin-top: 15px; }
+    .modal-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .modal-btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #a855f7);
+      color: #fff;
+    }
+    .modal-btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
+    /* Bottom Nav */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 14, 39, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      z-index: 99;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: #94a3b8;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.3s;
+      padding: 5px 10px;
+    }
+    .nav-item.active { color: #a855f7; }
+    .nav-item.active .nav-icon { transform: scale(1.2); }
+    .nav-item .nav-icon { font-size: 22px; transition: transform 0.3s; }
 
-        /* Features Section */
-        .features {
-            padding: 5rem 2rem;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background: rgba(255,255,255,0.15);
-            padding: 2rem;
-            border-radius: 20px;
-            text-align: center;
-            transition: all 0.3s;
-            backdrop-filter: blur(10px);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255,255,255,0.25);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Stats Section */
-        .stats {
-            padding: 4rem 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .stat-item h2 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Newsletter Section */
-        .newsletter {
-            padding: 5rem 2rem;
-            text-align: center;
-            background: rgba(0,0,0,0.2);
-        }
-
-        .newsletter-form {
-            max-width: 500px;
-            margin: 2rem auto;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .newsletter input {
-            flex: 1;
-            min-width: 250px;
-            padding: 1rem 1.5rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            outline: none;
-        }
-
-        /* Footer */
-        footer {
-            padding: 2rem;
-            text-align: center;
-            background: rgba(0,0,0,0.3);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 1rem 0;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            transition: transform 0.3s;
-        }
-
-        .social-links a:hover {
-            transform: scale(1.2);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .hero .tagline { font-size: 1.2rem; }
-            nav ul { gap: 1rem; }
-            nav a { padding: 0.3rem 0.6rem; font-size: 0.9rem; }
-        }
-    </style>
+    /* Loading Animation */
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+    .loading.active { display: block; }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid rgba(168, 85, 247, 0.2);
+      border-top-color: #a855f7;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 10px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="logo">
-            🚀 Pinova
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#features">المميزات</a></li>
-                <li><a href="#contact">تواصل</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>🚀 Pinova</h1>
-            <p class="tagline">بوابتك الذكية للتجارة الإلكترونية</p>
-            <p>منصة متكاملة لإدارة متجرك الإلكتروني بسهولة واحترافية</p>
-            <div class="cta-buttons">
-                <a href="#" class="btn btn-primary">ابدأ الآن</a>
-                <a href="#features" class="btn btn-secondary">اعرف المزيد</a>
-            </div>
-        </div>
-    </section>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">⚡</div>
+      <span>PiNova</span>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn">🔔</button>
+      <button class="icon-btn">⚙️</button>
+    </div>
+  </header>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <h2 class="section-title">لماذا Pinova؟</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">️</div>
-                <h3>متجر متكامل</h3>
-                <p>أنشئ متجرك الإلكتروني في دقائق مع واجهة سهلة الاستخدام</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"></div>
-                <h3>دفع آمن</h3>
-                <p>طرق دفع متعددة وآمنة لعملائك حول العالم</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3>تحليلات ذكية</h3>
-                <p>تتبع مبيعاتك وأداء متجرك بتقارير مفصلة</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🚚</div>
-                <h3>إدارة الشحن</h3>
-                <p>تكامل مع شركات الشحن لتوصيل سريع وموثوق</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📱</div>
-                <h3>متوافق مع الجوال</h3>
-                <p>تجربة تسوق سلسة على جميع الأجهزة</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"></div>
-                <h3>أمان عالي</h3>
-                <p>حماية كاملة لبياناتك وبيانات عملائك</p>
-            </div>
-        </div>
-    </section>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">✨ الإصدار 2.0 - منصة ذكية متكاملة</div>
+    <h1>PiNova منصة ذكية متكاملة</h1>
+    <p>أدوات الذكاء الاصطناعي، الأمن السيبراني، التجارة الإلكترونية وصناعة المحتوى في مكان واحد</p>
+  </section>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="stat-item">
-            <h2>10K+</h2>
-            <p>متجر نشط</p>
-        </div>
-        <div class="stat-item">
-            <h2>50K+</h2>
-            <p>عميل سعيد</p>
-        </div>
-        <div class="stat-item">
-            <h2>99%</h2>
-            <p>نسبة الرضا</p>
-        </div>
-        <div class="stat-item">
-            <h2>24/7</h2>
-            <p>دعم فني</p>
-        </div>
-    </section>
+  <!-- Pi Balance -->
+  <div class="pi-balance">
+    <div>
+      <div class="label">رصيد Pi الخاص بك</div>
+      <div class="amount">5,420 π</div>
+    </div>
+    <button class="pi-btn">عرض الصفقات</button>
+  </div>
 
-    <!-- Newsletter Section -->
-    <section class="newsletter" id="contact">
-        <h2 class="section-title">كن أول من يعلم</h2>
-        <p>سجل بريدك الإلكتروني ليصلك كل جديد عن Pinova</p>
-        <form class="newsletter-form" onsubmit="handleSubmit(event)">
-            <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
-            <button type="submit" class="btn btn-primary">اشترك الآن</button>
-        </form>
-    </section>
+  <!-- Main Tools - 4 Cards -->
+  <div class="section-title">🎯 الأدوات الرئيسية</div>
+  <div class="cards-grid">
 
-    <!-- Footer -->
-    <footer>
-        <div class="social-links">
-            <a href="#">📘</a>
-            <a href="#">🐦</a>
-            <a href="#">📷</a>
-            <a href="#">💼</a>
-        </div>
-        <p>&copy; 2026 Pinova. جميع الحقوق محفوظة.</p>
-    </footer>
+    <!-- Content Creation -->
+    <div class="card card-content" onclick="openSection('content')">
+      <div>
+        <span class="card-badge">✨ صناعة المحتوى</span>
+        <div class="card-icon-main">✳️</div>
+        <h3>Content Creation</h3>
+        <p>إنشاء محتوى نصي ومرئي وفيديو بالذكاء الاصطناعي</p>
+      </div>
+      <button class="card-btn">ابدأ الإنشاء ←</button>
+    </div>
 
-    <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+    <!-- Cybersecurity -->
+    <div class="card card-cyber" onclick="openSection('cyber')">
+      <div>
+        <span class="card-badge">🟢 نشط</span>
+        <div class="card-icon-main">🛡️</div>
+        <h3>Cybersecurity</h3>
+        <p>حماية شاملة للبيانات والعملة الرقمية وأدوات اختبار الاختراق</p>
+      </div>
+      <button class="card-btn">مركز الأمان ←</button>
+    </div>
 
-        // Form submission
-        function handleSubmit(e) {
-            e.preventDefault();
-            const email = e.target.querySelector('input').value;
-            alert('شكراً لاشتراكك! سنتواصل معك قريباً على: ' + email);
-            e.target.reset();
-        }
+    <!-- AI & E-commerce Academy -->
+    <div class="card card-academy" onclick="openSection('academy')">
+      <div>
+        <span class="card-badge"> جديد</span>
+        <div class="card-icon-main">🎓</div>
+        <h3>AI & E-commerce Academy</h3>
+        <p>تعلّم التجارة الإلكترونية والذكاء الاصطناعي من الصفر للاحتراف</p>
+      </div>
+      <button class="card-btn">ابدأ التعلم ←</button>
+    </div>
 
-        // Animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+    <!-- Landing Page Generator - NEW -->
+    <div class="card card-landing" onclick="openLandingModal()">
+      <div>
+        <span class="card-badge">🤖 AI Powered</span>
+        <div class="card-icon-main">🚀</div>
+        <h3>توليد صفحات الهبوط</h3>
+        <p>إنشاء صفحات هبوط احترافية بالذكاء الاصطناعي في ثوانٍ</p>
+      </div>
+      <button class="card-btn">ولّد صفحة ←</button>
+    </div>
 
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+  </div>
 
-        document.querySelectorAll('.feature-card, .stat-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
-        });
-    </script>
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <div class="num">24</div>
+      <div class="lbl">مشروع نشط</div>
+    </div>
+    <div class="stat">
+      <div class="num">156</div>
+      <div class="lbl">محتوى منشور</div>
+    </div>
+    <div class="stat">
+      <div class="num">89%</div>
+      <div class="lbl">معدل الجودة</div>
+    </div>
+  </div>
+
+  <!-- Academy Sub-sections -->
+  <div class="section-title">📚 مسارات الأكاديمية</div>
+  <div class="sub-sections">
+    <div class="sub-card">
+      <div class="sub-card-icon" style="background: linear-gradient(135deg, #7c3aed, #a855f7);"></div>
+      <div class="sub-card-info">
+        <h4>التجارة الإلكترونية</h4>
+        <p>Dropshipping • Shopify • التسويق الرقمي</p>
+      </div>
+      <div class="sub-card-arrow">←</div>
+    </div>
+    <div class="sub-card">
+      <div class="sub-card-icon" style="background: linear-gradient(135deg, #ec4899, #f43f5e);">🤖</div>
+      <div class="sub-card-info">
+        <h4>الذكاء الاصطناعي</h4>
+        <p>ChatGPT • Midjourney • الأتمتة</p>
+      </div>
+      <div class="sub-card-arrow">←</div>
+    </div>
+    <div class="sub-card">
+      <div class="sub-card-icon" style="background: linear-gradient(135deg, #10b981, #059669);">📊</div>
+      <div class="sub-card-info">
+        <h4>تحليل البيانات</h4>
+        <p>Python • Excel • Business Intelligence</p>
+      </div>
+      <div class="sub-card-arrow">←</div>
+    </div>
+  </div>
+
+  <!-- Cybersecurity Sub-sections -->
+  <div class="section-title">🔒 أدوات الأمن السيبراني</div>
+  <div class="sub-sections">
+    <div class="sub-card">
+      <div class="sub-card-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);"></div>
+      <div class="sub-card-info">
+        <h4>فحص الثغرات</h4>
+        <p>اكتشاف نقاط الضعف في أنظمتك</p>
+      </div>
+      <div class="sub-card-arrow">←</div>
+    </div>
+    <div class="sub-card">
+      <div class="sub-card-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">🦠</div>
+      <div class="sub-card-info">
+        <h4>مكافحة الفيروسات</h4>
+        <p>حماية فورية من البرمجيات الخبيثة</p>
+      </div>
+      <div class="sub-card-arrow">←</div>
+    </div>
+    <div class="sub-card">
+      <div class="sub-card-icon" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">🌐</div>
+      <div class="sub-card-info">
+        <h4>أمان الشبكات</h4>
+        <p>تشفير وحماية اتصالاتك</p>
+      </div>
+      <div class="sub-card-arrow">←</div>
+    </div>
+  </div>
+
+  <!-- Content Creation Sub-sections -->
+  <div class="section-title">🎬 صناعة المحتوى</div>
+  <div class="sub-sections">
+    <div class="sub-card">
+      <div class="sub-card-icon" style="background: linear-gradient(135deg, #a855f7, #7c3aed);">✍️</div>
+      <div class="sub-card-info">
+        <h4>AI Writing Assistant</h4>
+        <p>كتابة مقالات ومنشورات بالذكاء الاصطناعي</p>
+      </div>
+      <div class="sub-card-arrow">←</div>
+    </div>
+    <div class="sub-card">
+      <div class="sub-card-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">🎨</div>
+      <div class="sub-card-info">
+        <h4>Smart Design</h4>
+        <p>تصميم تلقائي ذكي للصور والشعارات</p>
+      </div>
+      <div class="sub-card-arrow">←</div>
+    </div>
+    <div class="sub-card">
+      <div class="sub-card-icon" style="background: linear-gradient(135deg, #f97316, #ea580c);">⚡</div>
+      <div class="sub-card-info">
+        <h4>Quick Generate</h4>
+        <p>إنتاج سريع للمحتوى بنقرة واحدة</p>
+      </div>
+      <div class="sub-card-arrow">←</div>
+    </div>
+  </div>
+
+  <!-- Landing Page Generator Sub-sections -->
+  <div class="section-title">🚀 مولّد صفحات الهبوط</div>
+  <div class="sub-sections">
+    <div class="sub-card" onclick="openLandingModal()">
+      <div class="sub-card-icon" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">📄</div>
+      <div class="sub-card-info">
+        <h4>صفحة منتج</h4>
+        <p>صفحة هبوط احترافية لمنتجك</p>
+      </div>
+      <div class="sub-card-arrow">←</div>
+    </div>
+    <div class="sub-card" onclick="openLandingModal()">
+      <div class="sub-card-icon" style="background: linear-gradient(135deg, #10b981, #059669);">💼</div>
+      <div class="sub-card-info">
+        <h4>صفحة خدمة</h4>
+        <p>اعرض خدماتك بشكل احترافي</p>
+      </div>
+      <div class="sub-card-arrow">←</div>
+    </div>
+    <div class="sub-card" onclick="openLandingModal()">
+      <div class="sub-card-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">📧</div>
+      <div class="sub-card-info">
+        <h4>صفحة جمع_emails</h4>
+        <p>اجمع عملاء محتملين بفعالية</p>
+      </div>
+      <div class="sub-card-arrow">←</div>
+    </div>
+  </div>
+
+  <!-- AI Features Box -->
+  <div class="ai-features">
+    <h3>✨ ميزات الذكاء الاصطناعي</h3>
+    <div class="ai-grid">
+      <div class="ai-item">
+        <div class="ai-icon">✍️</div>
+        <div>AI Writing</div>
+      </div>
+      <div class="ai-item">
+        <div class="ai-icon">🎨</div>
+        <div>Smart Design</div>
+      </div>
+      <div class="ai-item">
+        <div class="ai-icon">⚡</div>
+        <div>Quick Generate</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Landing Page Generator Modal -->
+  <div class="modal" id="landingModal">
+    <div class="modal-content">
+      <h2> توليد صفحة هبوط بالذكاء الاصطناعي</h2>
+      <p style="color: #cbd5e1; margin-bottom: 20px; font-size: 14px;">أدخل التفاصيل وسيقوم الذكاء الاصطناعي بإنشاء صفحة هبوط احترافية لك</p>
+      
+      <input type="text" id="pageName" placeholder="اسم الصفحة / المنتج" />
+      <select id="pageType">
+        <option value="">اختر نوع الصفحة</option>
+        <option value="product">صفحة منتج</option>
+        <option value="service">صفحة خدمة</option>
+        <option value="email">صفحة جمع Emails</option>
+        <option value="event">صفحة حدث</option>
+      </select>
+      <textarea id="pageDesc" placeholder="وصف مختصر للصفحة أو المنتج..."></textarea>
+      <select id="pageStyle">
+        <option value="">اختر النمط التصميمي</option>
+        <option value="modern">عصري</option>
+        <option value="minimal">بسيط</option>
+        <option value="bold">جريء</option>
+        <option value="elegant">أنيق</option>
+      </select>
+      
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p style="color: #cbd5e1;">الذكاء الاصطناعي يعمل على صفحتك...</p>
+      </div>
+      
+      <div class="modal-buttons" id="modalButtons">
+        <button class="modal-btn modal-btn-primary" onclick="generateLanding()"> ولّد الصفحة</button>
+        <button class="modal-btn modal-btn-secondary" onclick="closeLandingModal()">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="nav-item active" onclick="setActiveNav(this)">
+      <span class="nav-icon">🏠</span>
+      <span>الرئيسية</span>
+    </div>
+    <div class="nav-item" onclick="openLandingModal(); setActiveNav(this)">
+      <span class="nav-icon">➕</span>
+      <span>إنشاء</span>
+    </div>
+    <div class="nav-item" onclick="setActiveNav(this)">
+      <span class="nav-icon">📚</span>
+      <span>المكتبة</span>
+    </div>
+    <div class="nav-item" onclick="setActiveNav(this)">
+      <span class="nav-icon">👤</span>
+      <span>الملف الشخصي</span>
+    </div>
+  </nav>
+
+  <script>
+    // Bottom nav interaction
+    function setActiveNav(el) {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    // Open section
+    function openSection(section) {
+      const names = {
+        content: 'صناعة المحتوى',
+        cyber: 'الأمن السيبراني',
+        academy: 'الأكاديمية'
+      };
+      alert(`سيتم فتح قسم: ${names[section]} 🚀`);
+    }
+
+    // Landing Page Modal
+    function openLandingModal() {
+      document.getElementById('landingModal').classList.add('active');
+    }
+    function closeLandingModal() {
+      document.getElementById('landingModal').classList.remove('active');
+      document.getElementById('loading').classList.remove('active');
+      document.getElementById('modalButtons').style.display = 'flex';
+    }
+
+    // Generate Landing Page
+    function generateLanding() {
+      const name = document.getElementById('pageName').value;
+      const type = document.getElementById('pageType').value;
+      const desc = document.getElementById('pageDesc').value;
+      const style = document.getElementById('pageStyle').value;
+
+      if (!name || !type || !desc) {
+        alert('⚠️ يرجى ملء جميع الحقول المطلوبة');
+        return;
+      }
+
+      // Show loading
+      document.getElementById('loading').classList.add('active');
+      document.getElementById('modalButtons').style.display = 'none';
+
+      // Simulate AI generation
+      setTimeout(() => {
+        document.getElementById('loading').classList.remove('active');
+        document.getElementById('modalButtons').style.display = 'flex';
+        alert(`✅ تم إنشاء صفحة "${name}" بنجاح!\nالنوع: ${type}\nالنمط: ${style}\n\nسيتم توجيهك للصفحة المولّدة...`);
+        closeLandingModal();
+      }, 2500);
+    }
+
+    // Close modal on outside click
+    document.getElementById('landingModal').addEventListener('click', function(e) {
+      if (e.target === this) closeLandingModal();
+    });
+  </script>
+
 </body>
 </html>
